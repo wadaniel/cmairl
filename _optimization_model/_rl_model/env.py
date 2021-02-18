@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import csv
+import sys
 import json
 from cartpole import *
 
@@ -116,6 +116,9 @@ def envWithTestObs(s, th):
       s["Termination"] = "Truncated"
 
  else: # Testing
+
+     print("ERROR, change to json setup")
+     sys.exit()
 
      obsfile = s["Custom Settings"]["Output"]
      states = []
