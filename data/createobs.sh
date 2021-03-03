@@ -7,7 +7,7 @@ RUNDIR="./t${target}"
 #RUNDIR="."
 
 mkdir $RUNDIR
-for i in {1..10}
+for i in {1..1}
 do
     fname=run-vracer-t${target}-$i.py
     #fname=run-vracer-$i.py

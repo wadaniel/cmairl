@@ -27,7 +27,6 @@ e["Problem"]["Environment Function"] = envp
 e["Problem"]["Training Reward Threshold"] = 498
 e["Problem"]["Policy Testing Episodes"] = 25
 e["Problem"]["Testing Frequency"] = 100
-e["Problem"]["Actions Between Policy Updates"] = 5
 
 e["Variables"][0]["Name"] = "Cart Position"
 e["Variables"][0]["Type"] = "State"
@@ -51,9 +50,8 @@ e["Variables"][4]["Initial Exploration Noise"] = 1.0
 
 e["Solver"]["Type"] = "Agent / Continuous / VRACER"
 e["Solver"]["Mode"] = "Training"
-e["Solver"]["Experiences Between Policy Updates"] = 5
+e["Solver"]["Experiences Between Policy Updates"] = 1
 e["Solver"]["Episodes Per Generation"] = 1
-e["Solver"]["Cache Persistence"] = 250
 
 ### Defining the configuration of replay memory
 
