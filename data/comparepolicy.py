@@ -41,6 +41,7 @@ if __name__ == "__main__":
 
     perrors = []
     for policy in policies:
+      print(policy)
       
       oerrors = []
       for infile in files:
@@ -80,11 +81,12 @@ if __name__ == "__main__":
       pmuerrors.append(mu)
       psdeverrors.append(sdev)
 
-    adjust = np.ones(len(pmuerrors)) * 0.5
-    adjust[-1] = 0.
+    #adjust = np.ones(len(pmuerrors)) * 0.5
+    #adjust[-1] = 0.
 
     print(pminerrors)
-    x = np.power(0.5,range(len(pmuerrors))) * adjust
+    x = np.power(0.5,range(len(pmuerrors)))
+    x[-1] = 0.
 
     axes = plt.axes()
     axes.set_ylim([0, max(pmuerrors)+1.5*max(psdeverrors)])

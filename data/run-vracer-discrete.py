@@ -5,9 +5,11 @@ sys.path.append('../_optimization_model/_rl_model')
 sys.path.append('../../_optimization_model/_rl_model')
 from env import *
 
+run = 0
+target = 0.0
 
-outfile = "observations-vracer-{}-t-{}.json".format(run, target)
-resultdir = "_korali_result_{}-t-{}".format(run, target)
+outfile = "observations-dvracer-{}-t-{}.json".format(run, target)
+resultdir = "_korali_dresult_{}-t-{}".format(run, target)
 
 ####### Defining Korali Problem
 
@@ -22,9 +24,10 @@ if (found == True):
   print('Continuing execution from latest...')
  
 ### Defining the Cartpole problem's configuration
-e["Problem"]["Type"] = "Reinforcement Learning / Continuous"
+e["Problem"]["Type"] = "Reinforcement Learning / Discrete"
+e["Problem"]["Possible Actions"] = [ [ -10.0 ], [ -5.0 ], [ -1.0 ], [ 0.0 ], [ 1.0 ], [ 5.0 ], [ 10.0 ] ]
 e["Problem"]["Environment Function"] = envp
-e["Problem"]["Training Reward Threshold"] = 498
+e["Problem"]["Training Reward Threshold"] = 495
 e["Problem"]["Policy Testing Episodes"] = 25
 e["Problem"]["Testing Frequency"] = 100
 
@@ -42,13 +45,10 @@ e["Variables"][3]["Type"] = "State"
 
 e["Variables"][4]["Name"] = "Force"
 e["Variables"][4]["Type"] = "Action"
-e["Variables"][4]["Lower Bound"] = -10.0
-e["Variables"][4]["Upper Bound"] = +10.0
-e["Variables"][4]["Initial Exploration Noise"] = 1.0
 
 ### Defining Agent Configuration 
 
-e["Solver"]["Type"] = "Agent / Continuous / VRACER"
+e["Solver"]["Type"] = "Agent / Discrete / DVRACER"
 e["Solver"]["Mode"] = "Training"
 e["Solver"]["Experiences Between Policy Updates"] = 1
 e["Solver"]["Episodes Per Generation"] = 1
@@ -64,11 +64,16 @@ e["Solver"]["Discount Factor"] = 0.99
 e["Solver"]["Learning Rate"] = 1e-4
 e["Solver"]["L2 Regularization"]["Enabled"] = True
 e["Solver"]["L2 Regularization"]["Importance"] = 1e-4
-e["Solver"]["Mini Batch Size"] = 32
+e["Solver"]["Mini Batch"]["Size"] = 32
 
+e["Solver"]["State Rescaling"]["Enabled"] = True
+e["Solver"]["Reward"]["Rescaling"]["Enabled"] = False
+e["Solver"]["Reward"]["Rescaling"]["Frequency"] = 0
+ 
 ### Configuring the neural network and its hidden layers
 
 e["Solver"]["Neural Network"]["Engine"] = "OneDNN"
+e["Solver"]["Neural Network"]["Optimizer"] = "Adam"
 
 e["Solver"]["Neural Network"]["Hidden Layers"][0]["Type"] = "Layer/Linear"
 e["Solver"]["Neural Network"]["Hidden Layers"][0]["Output Channels"] = 32
@@ -84,7 +89,7 @@ e["Solver"]["Neural Network"]["Hidden Layers"][3]["Function"] = "Elementwise/Tan
 
 ### Defining Termination Criteria
 
-e["Solver"]["Termination Criteria"]["Testing"]["Target Average Reward"] = 499
+e["Solver"]["Termination Criteria"]["Testing"]["Target Average Reward"] = 490
 e["Solver"]["Termination Criteria"]["Max Generations"] = 5000
 
 ### Setting file output configuration

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import csv
 import sys
+import json
 import numpy as np
 from cartpole import *
 
@@ -23,13 +23,10 @@ def evalenv(s):
      sys.exit()
      #obsidx = 3 # pole velocity
  
- with open(obsfile) as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter=',', quoting=csv.QUOTE_NONNUMERIC)
-
-    
-    for row in csv_reader:
-        states.append(row[:4])
-        observation.append(row[obsidx])
+ with open(obsfile) as json_file:
+    data = json.load(json_file)
+    states = data["States"][0]
+    observation = data["Actions"][0]
 
  suml2 = 0.0
 
