@@ -25,7 +25,7 @@ if (found == True):
  
 ### Defining the Cartpole problem's configuration
 e["Problem"]["Type"] = "Reinforcement Learning / Discrete"
-e["Problem"]["Possible Actions"] = [ [ -10.0 ], [ -5.0 ], [ -1.0 ], [ 0.0 ], [ 1.0 ], [ 5.0 ], [ 10.0 ] ]
+e["Problem"]["Possible Actions"] = [ [i] for i in range(-10,11) ]
 e["Problem"]["Environment Function"] = envp
 e["Problem"]["Training Reward Threshold"] = 495
 e["Problem"]["Policy Testing Episodes"] = 25
